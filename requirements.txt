@@ -2,3 +2,4 @@ numpy
 matplotlib
 Flask
 jupyter
+flask-cors
