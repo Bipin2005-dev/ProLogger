@@ -3,3 +3,4 @@ matplotlib
 Flask
 jupyter
 flask-cors
+jupytext
