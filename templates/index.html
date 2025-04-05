@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>Home</title>
+<script src="{{ url_for('static', filename='index.js') }}"></script>
+{% endblock %}
+
+{% block body %}
+    <form id="form-upload" enctype="multipart/form-data" action="/fileProcess" method="post">
+        <input type="file" id="file-upload" accept=".log" name="raw-log">
+        <button type="submit" id="submit-button">Submit</button>
+{% endblock %}

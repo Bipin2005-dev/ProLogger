@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block head %}
+<title>
+        {% if event == "loading" %} Loading 
+        {% elif event == "error" %} Error 
+        {% endif %}
+    </title>
+{% endblock %}
+{% block body %}
+    <p>
+        {% if event == "loading" %} Loading 
+        {% elif event == "error" %} Error 
+        {% endif %}
+{% endblock %}
+
