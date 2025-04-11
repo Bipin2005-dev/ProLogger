@@ -2,10 +2,19 @@
 {% block head %}
 <title>Home</title>
 <script src="{{ url_for('static', filename='index.js') }}"></script>
+<link rel="stylesheet" href= {{ url_for('static', filename="css/index.css") }}>
 {% endblock %}
 
 {% block body %}
-    <form id="form-upload" enctype="multipart/form-data" action="/fileProcess" method="post">
+<div class="header-text">
+    <h1>Welcome to ProLogger!</h1>
+    <h2>A one stop solution to all your Apache logging needs</h2>
+</div>
+<div class="form-elements">
+    <h3>Upload your Apache file:</h3>
+    <form id="form-upload" enctype="multipart/form-data" action="/fileProcess" method="post" accept=".log .txt">
         <input type="file" id="file-upload" accept=".log" name="raw-log">
-        <button type="submit" id="submit-button">Submit</button>
+        <button type="submit" id="submit-button"><img id="nxt-btn" src={{ url_for('static', filename="images/next.png") }}></button>
+    </form>
+</div>
 {% endblock %}

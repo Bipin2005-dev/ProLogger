@@ -1998,4 +1998,4 @@ LineId,Time,Level,Content,EventId,EventTemplate
 1997,Mon Dec 05 19:15:55 2005,notice,jk2_init() Found child 6791 in scoreboard slot 8,E1,jk2_init() Found child <*> in scoreboard slot <*>
 1998,Mon Dec 05 19:15:55 2005,notice,jk2_init() Found child 6790 in scoreboard slot 7,E1,jk2_init() Found child <*> in scoreboard slot <*>
 1999,Mon Dec 05 19:15:57 2005,notice,workerEnv.init() ok /etc/httpd/conf/workers2.properties,E2,workerEnv.init() ok <*>
-2000,Mon Dec 05 19:15:57 2005,error,mod_jk child workerEnv in error state 6,E3,mod_jk child workerEnv in error state <*>
+2000,Mon Dec 05 19:15:57 2005,error,mod_jk child workerEnv in error state 6,E3,mod_jk child workerEnv in error state <*>

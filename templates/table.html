@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block head %} 
+	<link rel="stylesheet" href= "{{ url_for('static', filename='css/table_styles.css') }}?v=1">
+	<title>Table</title>
+{% endblock %}
+
+{% block body %}
+	<form>
+		<h2>Select Date/Time Range</h2>
+		<label for="start-date">Start Date: </label>
+		<input id="start-date" name="start-date" type="date">
+		<label for="start-time">Start Time: </label>
+		<input id="start-time" name="start-time" type="time">
+		<label for="end-date">End Date: </label>
+		<input id="end-date" name="end-date" type="date">
+		<label for="end-time">End Time: </label>
+		<input id="end-time" name="end-time" type="time">
+
+	</form>
+	<div class="download">
+		<a href="temp/processedUpload.log" id="download-button">
+			<img src="{{ url_for('static', filename="images/download-btn.avif") }}" alt="(Download)"> Download as CSV
+		</a>	
+	</div>
+	<table>
+		<thead>
+			<th>Serial No</th>
+			<th>Date and Time</th>
+			<th>Event Sate</th>
+			<th>Event</th>
+			<th>Event Code</th>
+			<th>Event Type</th>
+		</thead>
+		<tbody>
+		{% for line in tokens %}
+			<tr>
+				<td class="sl-no">{{line[0]}}</td>
+				<td class="date-time">{{line[1]}}</td>
+				<td class="event-state">{{line[2]}}</td>
+				<td class="event">{{line[3]}}</td>
+				<td class="event-code">{{line[4]}}</td>
+				<td class="event-type">{{line[5]}}</td>
+			</tr>	
+		{% endfor %}
+		</tbody>
+	</table>
+
+{% endblock %}

@@ -16,6 +16,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from sys import argv
+import os
 """
     EVENTS LOGGED WITH TIME(LINE PLOT).
     What are the possible ways in which I can plot Events logged with time?
@@ -31,6 +32,9 @@ from sys import argv
     4. I need to partition the time to have around 40ish objects, so that I do not end up plotting too many or too few data
        points.
 """
+input_file_path = argv[1]
+output_folder= argv[2]
+os.makedirs(os.path.dirname(output_folder), exist_ok=True)
 
 def to_iso(date_str : str):
     day, month, date, time, year = date_str.split(' ')
@@ -41,10 +45,7 @@ def to_iso(date_str : str):
     }
     return f"{year}-{month_dict[month]}-{date}T{time}"
 
-datetime_dict = {}
-
-input_file_path = argv[1]
-output_folder= argv[2]
+datetime_dict = {} 
 
 with open(input_file_path, 'r') as file:
     for line in file:

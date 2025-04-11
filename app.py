@@ -2,6 +2,7 @@ from flask import Flask, render_template, jsonify, redirect, url_for, send_from_
 from flask import request
 import subprocess
 import time
+import numpy as np
 
 app = Flask("ProLogger")
 
@@ -11,7 +12,6 @@ def home():
 
 @app.route('/fileProcess', methods=['POST'])
 def fileUpload():
-    render_template('processing.html', event="loading")
     file = request.files['raw-log']
     if file:
         file.save('./temp/uploadedFile.log')
@@ -19,7 +19,7 @@ def fileUpload():
         subprocess.run(["python3 ./scripts/plotter.py ./temp/processedUpload.log ./temp/output_plots/"],shell=True)
     else:
         return render_template('processing.html', event="error") 
-    return redirect(url_for('analytics'))
+    return redirect(url_for('table'))
 
 @app.route('/analytics', methods=['GET'])
 def analytics():
@@ -29,6 +29,10 @@ def analytics():
 def temp(filename: str):
     return send_from_directory('temp', filename)
 
+@app.route('/table', methods=['GET'])
+def table():
+    tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
+    return render_template('table.html', tokens = tokenized_lines)
 
 if __name__ == '__main__':
     app.run(debug=True)
