@@ -1,15 +1,28 @@
 {% extends 'base.html' %}
 {% block head %}
-<title>
-        {% if event == "loading" %} Loading 
-        {% elif event == "error" %} Error 
+    <title>
+        {% if event == "Invalid file" %} Invalid File
+        {% elif event == "File not found" %} File not found 
         {% endif %}
     </title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+        }
+        #index-link {
+            color: white;
+        }
+    </style>
 {% endblock %}
 {% block body %}
     <p>
-        {% if event == "loading" %} Loading 
-        {% elif event == "error" %} Error 
+        {% if event == "Invalid file" %} Oops! The file you uploaded is not a valid Apache log file! 
+        {% elif event == "File not found" %} Oops! The file you uploaded was not detected by the server.
         {% endif %}
+    </p>
+    <p>
+        <a href="/index" id="index-link">Click here</a> to go back to the file upload page.
+    </p>
 {% endblock %}
 

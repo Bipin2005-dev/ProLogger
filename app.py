@@ -6,19 +6,28 @@ import numpy as np
 
 app = Flask("ProLogger")
 
-@app.route('/', methods=['GET'])
+@app.route('/index', methods=['GET'])
 def home():
     return render_template('index.html')
 
+#TODO: Implement error checks for the uploaded file and prevent the website from crashing.
 @app.route('/fileProcess', methods=['POST'])
 def fileUpload():
     file = request.files['raw-log']
     if file:
         file.save('./temp/uploadedFile.log')
         subprocess.run(["bash ./scripts/log_to_csv.sh ./temp/uploadedFile.log ./temp/processedUpload.log"], shell=True)
-        subprocess.run(["python3 ./scripts/plotter.py ./temp/processedUpload.log ./temp/output_plots/"],shell=True)
+        try:
+            with open("./temp/processedUpload.log", "r") as file:
+                error_check = file.readline()
+                print(error_check)
+                if error_check.startswith("Invalid format"):
+                    return render_template('processing.html', event="Invalid file") 
+        except UnicodeDecodeError:
+            return "<p>Unicode Error</p>"
+        subprocess.run(["python3 ./scripts/plotter.py ./temp/processedUpload.log ./temp/output_plots/"], shell=True)
     else:
-        return render_template('processing.html', event="error") 
+        return render_template('processing.html', event="File not found") 
     return redirect(url_for('table'))
 
 @app.route('/analytics', methods=['GET'])
