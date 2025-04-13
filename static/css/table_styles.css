@@ -18,6 +18,10 @@ tbody tr:nth-child(even){
 	background-color: rgb(50, 50, 50);
 }
 
+tbody tr:last-child {
+	border-bottom: 1px solid white;
+}
+
 th {
 	border-bottom: 1px solid white;
 	border-top: 1px solid white;
@@ -82,15 +86,31 @@ form {
 #start-date {
 	margin-left: 0.5%;
 	margin-right: 2%;
+	color: black;
 }
 
 #start-time {
 	margin-left: 0.5%;
 	margin-right: 25%;
+	color: black;
 }
 
 #end-date {
 	margin-left: 0.5%;
 	margin-right: 2%;
+	color: black;
+}
+
+#end-time {
+	color: black;
+}
+
+#submit-button {
+	background-color: white;
+	color: black;
+	align-self: center;
+	margin-left: 45%;
+	width: 5em;
+	border-radius: 2em;
 }
 
