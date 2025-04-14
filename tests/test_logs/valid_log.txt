@@ -1,0 +1,2 @@
+[Sun Dec 04 04:48:00 2005] [notice] jk2_init() Found child 1234 in scoreboard slot 9
+[Sun Dec 04 04:48:01 2005] [error] mod_jk child workerEnv in error state 7

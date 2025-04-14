@@ -12,8 +12,8 @@
 </div>
 <div class="form-elements">
     <h3>Upload your Apache file:</h3>
-    <form id="form-upload" enctype="multipart/form-data" action="/fileProcess" method="post" accept=".log .txt">
-        <input type="file" id="file-upload" accept=".log" name="raw-log">
+    <form id="form-upload" enctype="multipart/form-data" action="/fileProcess" method="post">
+        <input type="file" id="file-upload" accept=".log,.txt" name="raw-log">
         <button type="submit" id="submit-button"><img id="nxt-btn" src={{ url_for('static', filename="images/next.png") }}></button>
     </form>
 </div>

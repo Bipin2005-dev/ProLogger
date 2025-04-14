@@ -1,0 +1,2 @@
+Now I have to format the graphs page. Even in that I'll have to append a form as given for the table part, and then go on to show the corresponding plots.
+How would I do that? I think I'll just partition the data right from the start so that the rest of the process for plotter.py gets carried on smoothly. 

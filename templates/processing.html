@@ -3,6 +3,7 @@
     <title>
         {% if event == "Invalid file" %} Invalid File
         {% elif event == "File not found" %} File not found 
+	{% elif event == "Empty file" %} Empty file
         {% endif %}
     </title>
     <style>
@@ -19,6 +20,7 @@
     <p>
         {% if event == "Invalid file" %} Oops! The file you uploaded is not a valid Apache log file! 
         {% elif event == "File not found" %} Oops! The file you uploaded was not detected by the server.
+	{% elif event == "Empty file" %} Seems like you uploaded an empty log file...
         {% endif %}
     </p>
     <p>

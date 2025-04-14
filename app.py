@@ -6,6 +6,9 @@ import numpy as np
 
 app = Flask("ProLogger")
 
+@app.route('/', methods=['GET'])
+def index():
+           return redirect(url_for('home'))
 @app.route('/index', methods=['GET'])
 def home():
     return render_template('index.html')
@@ -20,9 +23,10 @@ def fileUpload():
         try:
             with open("./temp/processedUpload.log", "r") as file:
                 error_check = file.readline()
-                print(error_check)
                 if error_check.startswith("Invalid format"):
                     return render_template('processing.html', event="Invalid file") 
+                elif error_check.startswith("Empty file"):
+                    return render_template('processing.html', event="Empty file")
         except UnicodeDecodeError:
             return "<p>Unicode Error</p>"
         subprocess.run(["python3 ./scripts/plotter.py ./temp/processedUpload.log ./temp/output_plots/"], shell=True)
@@ -30,9 +34,19 @@ def fileUpload():
         return render_template('processing.html', event="File not found") 
     return redirect(url_for('table'))
 
-@app.route('/analytics', methods=['GET'])
-def analytics():
-    return render_template('analytics.html')
+@app.route('/graphs', methods=['GET', 'POST'])
+def graphs():
+    if request.method == "GET":
+        return render_template('graphs.html')
+    elif request.method == "POST":
+        start_datetime = f"{request.form['start-date']}T{request.form['start-time']}"
+        end_datetime = f"{request.form['end-date']}T{request.form['end-time']}"
+        tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
+        mask = [True if (end_datetime >= datetime_converter(datetime) >= start_datetime) else False for datetime in tokenized_lines.T[1]]
+        tokenized_lines = tokenized_lines[mask]
+        np.savetxt('temp/filtered.log', tokenized_lines, delimiter = ',', header='LineId,Time,Level,Content,EventId,EventTemplate', comments="", fmt='%s')
+        subprocess.run(["python3 ./scripts/plotter.py ./temp/filtered.log ./temp/output_plots/"], shell=True)
+        return render_template('graphs.html')
 
 @app.route('/temp/<path:filename>', methods=['GET'])
 def temp(filename: str):

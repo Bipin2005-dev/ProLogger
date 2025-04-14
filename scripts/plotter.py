@@ -72,12 +72,13 @@ noise_minimized_datetime = {}
 datetime_dict_as_tuples = list(datetime_dict.items())
 for i in range(len(datetime_dict)):
     sum = 0
-    if i in range(9):
+    if i in range(window):
         noise_minimized_datetime[datetime_dict_as_tuples[i][0]] = datetime_dict_as_tuples[i][1]
-    for j in range(window):
-        sum += datetime_dict_as_tuples[i - j][1]
-    sum /= window
-    noise_minimized_datetime[datetime_dict_as_tuples[i][0]] = sum
+    else:
+        for j in range(window):
+            sum += datetime_dict_as_tuples[i - j][1]
+            sum /= window
+            noise_minimized_datetime[datetime_dict_as_tuples[i][0]] = sum
 
 fig, ax = plt.subplots(figsize=(16,10))
 ax.set_xlabel('Date and Time')
