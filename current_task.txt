@@ -1,2 +1,4 @@
-Now I have to format the graphs page. Even in that I'll have to append a form as given for the table part, and then go on to show the corresponding plots.
-How would I do that? I think I'll just partition the data right from the start so that the rest of the process for plotter.py gets carried on smoothly. 
+Now, I need to create the navigation bar. I think, by the way the website works, the nav bar should only appear once I have uploaded the log file.
+Let the colour of the bar be grey, include the links to the index page, the tables page, as well as the graphs page.
+
+The nav bar shouldn't be accessible the first time the user comes. Probably keep a variable signifying the file upload, and only allow access to it if a file is uploaded.

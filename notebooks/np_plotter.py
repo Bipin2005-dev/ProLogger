@@ -25,7 +25,7 @@ def to_iso(date_str : str):
 
 
 #Read the file using numpy.
-file = np.loadtxt(input_file_path, skiprows=1, delimiter=',', dtype=object)
+file = np.loadtxt(input_file_path)
 
 # LINE PLOT starts here.
 dates, counts = np.unique(file.T[1], return_counts=True)

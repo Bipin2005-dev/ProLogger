@@ -5,15 +5,15 @@ import time
 import numpy as np
 
 app = Flask("ProLogger")
+file_uploaded = False #Global variable to check if it is the first time for the user uploading a file, in which case the table and graphs from the nav bar shouldn't be available.
 
 @app.route('/', methods=['GET'])
 def index():
            return redirect(url_for('home'))
 @app.route('/index', methods=['GET'])
 def home():
-    return render_template('index.html')
+    return render_template('index.html', file_uploaded=file_uploaded)
 
-#TODO: Implement error checks for the uploaded file and prevent the website from crashing.
 @app.route('/fileProcess', methods=['POST'])
 def fileUpload():
     file = request.files['raw-log']
@@ -32,12 +32,13 @@ def fileUpload():
         subprocess.run(["python3 ./scripts/plotter.py ./temp/processedUpload.log ./temp/output_plots/"], shell=True)
     else:
         return render_template('processing.html', event="File not found") 
+    file_uploaded = True
     return redirect(url_for('table'))
 
 @app.route('/graphs', methods=['GET', 'POST'])
 def graphs():
     if request.method == "GET":
-        return render_template('graphs.html')
+        return render_template('graphs.html', file_uploaded=True)
     elif request.method == "POST":
         start_datetime = f"{request.form['start-date']}T{request.form['start-time']}"
         end_datetime = f"{request.form['end-date']}T{request.form['end-time']}"
@@ -46,7 +47,7 @@ def graphs():
         tokenized_lines = tokenized_lines[mask]
         np.savetxt('temp/filtered.log', tokenized_lines, delimiter = ',', header='LineId,Time,Level,Content,EventId,EventTemplate', comments="", fmt='%s')
         subprocess.run(["python3 ./scripts/plotter.py ./temp/filtered.log ./temp/output_plots/"], shell=True)
-        return render_template('graphs.html')
+        return render_template('graphs.html', file_uploaded=True)
 
 @app.route('/temp/<path:filename>', methods=['GET'])
 def temp(filename: str):
@@ -76,7 +77,7 @@ def datetime_converter(og_date : str):
 def table():
     if request.method == 'GET':
         tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
-        return render_template('table.html', tokens = tokenized_lines)
+        return render_template('table.html', tokens = tokenized_lines, file_uploaded=True)
 
     if request.method == 'POST':
         tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
@@ -84,7 +85,7 @@ def table():
         end_datetime = f"{request.form['end-date']}T{request.form['end-time']}"
         mask = [True if (end_datetime >= datetime_converter(datetime) >= start_datetime) else False for datetime in tokenized_lines.T[1]]
         tokenized_lines = tokenized_lines[mask]
-        return render_template('table.html', tokens = tokenized_lines)
+        return render_template('table.html', tokens = tokenized_lines, file_uploaded=True)
 
 if __name__ == '__main__':
     app.run(debug=True)

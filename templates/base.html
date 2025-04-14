@@ -1,9 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<style>
+		.nav-bar {
+			background-color:gray;!important
+			width: 100%;
+			text-align: center;
+		}
+		.nav-bar span {
+			background-color: gray;
+			margin-left: 2%;
+			margin-right: 2%;
+		}
+	</style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     {% block head%} {% endblock %}
+    {% if file_uploaded %}
+    <nav class="nav-bar">
+	    <span id="upload"><a href= "{{ url_for('home') }}" style="text-decoration: none; background-color: gray">Upload a file</a></span>
+	    <span id="Table"><a href= "{{ url_for('table') }}" style="text-decoration: none; background-color: gray">Table</a></span>
+	    <span id="graphs"><a href= "{{ url_for('graphs') }}" style="text-decoration: none; background-color: gray">Graphs</a></span>
+    </nav>
+    {% endif %}
 </head>
 <body>
 	{% block body %} {% endblock %}
