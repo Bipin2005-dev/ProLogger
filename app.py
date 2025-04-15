@@ -3,6 +3,7 @@ from flask import request
 import subprocess
 import time
 import numpy as np
+import os
 
 app = Flask("ProLogger")
 file_uploaded = False #Global variable to check if it is the first time for the user uploading a file, in which case the table and graphs from the nav bar shouldn't be available.
@@ -18,6 +19,12 @@ def home():
 def fileUpload():
     file = request.files['raw-log']
     if file:
+        if os.path.exists('./temp/output_plots/bar_plot.png'):
+            os.remove('./temp/output_plots/bar_plot.png')
+        if os.path.exists('./temp/output_plots/pie_plot.png'):
+            os.remove('./temp/output_plots/pie_plot.png')
+        if os.path.exists('./temp/output_plots/line_plot.png'):
+            os.remove('./temp/output_plots/line_plot.png')
         file.save('./temp/uploadedFile.log')
         subprocess.run(["bash ./scripts/log_to_csv.sh ./temp/uploadedFile.log ./temp/processedUpload.log"], shell=True)
         try:

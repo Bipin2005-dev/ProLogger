@@ -72,12 +72,15 @@ plt.savefig(output_folder + '/line_plot.png')
 
 """ EVENT CODE DISTRIBUTION """
 event, counts = np.unique(file.T[4], return_counts=True)
-print(event, counts)
-plt.bar(event, counts)
+x_pos = np.arange(len(event))
+plt.figure(figsize=(10, 6))
+plt.bar(x_pos, counts, color='skyblue')
+plt.xticks(x_pos, event, rotation=45)
+plt.xlabel('Event Code')
+plt.ylabel('Number of Events Logged')
 plt.title('Event State Distribution')
 plt.tight_layout()
-plt.savefig(output_folder + 'bar_plot.png')
-
+plt.savefig(output_folder + '/bar_plot.png')
 
 # In[ ]:
 
@@ -89,5 +92,6 @@ counts = (counts * 100) / np.sum(counts)
 wedges, texts, autotexts = plt.pie(counts, labels=None,labeldistance=0.5, autopct= '%1.1f%%', startangle=140, )
 plt.legend(wedges, level_states, title="Level States", loc="upper right")
 plt.title('Level State Distribution')
+plt.tight_layout()
 plt.savefig(output_folder +"/pie_plot.png")
 
