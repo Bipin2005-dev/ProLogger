@@ -47,12 +47,11 @@ def graphs():
     if request.method == "GET":
         return render_template('graphs.html', file_uploaded=True)
     elif request.method == "POST":
-        start_datetime = f"{request.form['start_date']}T{request.form['start_time']}"
-        end_datetime = f"{request.form['end_date']}T{request.form['end_time']}"
-        tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
-        mask = [True if (end_datetime >= datetime_converter(datetime) >= start_datetime) else False for datetime in tokenized_lines.T[1]]
-        tokenized_lines = tokenized_lines[mask]
-        np.savetxt('temp/filtered.log', tokenized_lines, delimiter = ',', header='LineId,Time,Level,Content,EventId,EventTemplate', comments="", fmt='%s')
+        start_time = request.form['start_time'] if request.form['start_time'] != '' else '00:00:00'
+        end_time = request.form['end_time'] if request.form['end_time'] != '' else '00:00:00'
+        start_datetime = f"{request.form['start_date']}T{start_time}+05:30"
+        end_datetime = f"{request.form['end_date']}T{end_time}+05:30"
+        subprocess.run([f"bash ./scripts/filter.sh ./temp/processedUpload.log {start_datetime} {end_datetime} ./temp/filtered.log"],shell=True)
         subprocess.run(["python3 ./scripts/plotter.py ./temp/filtered.log ./temp/output_plots/"], shell=True)
         return render_template('graphs.html', file_uploaded=True)
 
@@ -60,25 +59,6 @@ def graphs():
 def temp(filename: str):
     return send_from_directory('temp', filename)
 
-#Parsing Sun Dec 04 04:44:54 2005 to 2005-12-04T04:44:54
-def datetime_converter(og_date : str):
-    _, month, date, _time, year = og_date.split(" ")
-    month_dict = {
-    "Jan": "01",
-    "Feb": "02",
-    "Mar": "03",
-    "Apr": "04",
-    "May": "05",
-    "Jun": "06",
-    "Jul": "07",
-    "Aug": "08",
-    "Sep": "09",
-    "Oct": "10",
-    "Nov": "11",
-    "Dec": "12"
-    }
-    output = f"{year}-{month_dict[month]}-{date}T{_time}"
-    return output
 
 @app.route('/table', methods=['GET', 'POST'])
 def table():
@@ -89,11 +69,10 @@ def table():
     if request.method == 'POST':
         start_time = request.form['start_time'] if request.form['start_time'] != '' else '00:00:00'
         end_time = request.form['end_time'] if request.form['end_time'] != '' else '00:00:00'
-        tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
-        start_datetime = f"{request.form['start_date']}T{start_time}"
-        end_datetime = f"{request.form['end_date']}T{end_time}"
-        mask = [True if (end_datetime >= datetime_converter(datetime) >= start_datetime) else False for datetime in tokenized_lines.T[1]]
-        tokenized_lines = tokenized_lines[mask]
+        start_datetime = f"{request.form['start_date']}T{start_time}+05:30"
+        end_datetime = f"{request.form['end_date']}T{end_time}+05:30"
+        subprocess.run([f"bash ./scripts/filter.sh ./temp/processedUpload.log {start_datetime} {end_datetime} ./temp/filtered.log"],shell=True)
+        tokenized_lines = np.loadtxt('temp/filtered.log', delimiter=',', dtype=object)
         return render_template('table.html', tokens = tokenized_lines, file_uploaded=True)
 
 if __name__ == '__main__':
