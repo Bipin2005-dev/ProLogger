@@ -47,8 +47,8 @@ def graphs():
     if request.method == "GET":
         return render_template('graphs.html', file_uploaded=True)
     elif request.method == "POST":
-        start_datetime = f"{request.form['start-date']}T{request.form['start-time']}"
-        end_datetime = f"{request.form['end-date']}T{request.form['end-time']}"
+        start_datetime = f"{request.form['start_date']}T{request.form['start_time']}"
+        end_datetime = f"{request.form['end_date']}T{request.form['end_time']}"
         tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
         mask = [True if (end_datetime >= datetime_converter(datetime) >= start_datetime) else False for datetime in tokenized_lines.T[1]]
         tokenized_lines = tokenized_lines[mask]
@@ -87,9 +87,11 @@ def table():
         return render_template('table.html', tokens = tokenized_lines, file_uploaded=True)
 
     if request.method == 'POST':
+        start_time = request.form['start_time'] if request.form['start_time'] != '' else '00:00:00'
+        end_time = request.form['end_time'] if request.form['end_time'] != '' else '00:00:00'
         tokenized_lines = np.loadtxt('temp/processedUpload.log', delimiter=',', skiprows=1, dtype=object)
-        start_datetime = f"{request.form['start-date']}T{request.form['start-time']}"
-        end_datetime = f"{request.form['end-date']}T{request.form['end-time']}"
+        start_datetime = f"{request.form['start_date']}T{start_time}"
+        end_datetime = f"{request.form['end_date']}T{end_time}"
         mask = [True if (end_datetime >= datetime_converter(datetime) >= start_datetime) else False for datetime in tokenized_lines.T[1]]
         tokenized_lines = tokenized_lines[mask]
         return render_template('table.html', tokens = tokenized_lines, file_uploaded=True)

@@ -6,14 +6,14 @@
 {% block body %}
 	<form method="post" action="{% block form_action %}{% endblock %}">
 		<h2>Select Date/Time Range</h2>
-		<label for="start-date">Start Date: </label>
-		<input id="start-date" name="start-date" type="date">
-		<label for="start-time">Start Time: </label>
-		<input id="start-time" name="start-time" type="time">
-		<label for="end-date">End Date: </label>
-		<input id="end-date" name="end-date" type="date">
-		<label for="end-time">End Time: </label>
-		<input id="end-time" name="end-time" type="time">
+		<label for="start_date">Start Date: </label>
+		<input id="start-date" name="start_date" type="date">
+		<label for="start_time">Start Time: </label>
+		<input id="start-time" name="start_time" type="time">
+		<label for="end_date">End Date: </label>
+		<input id="end-date" name="end_date" type="date">
+		<label for="end_time">End Time: </label>
+		<input id="end-time" name="end_time" type="time">
 		<button type="submit" id="submit-button">Submit</button>
 	</form>
 {% endblock %}
