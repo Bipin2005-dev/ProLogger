@@ -1,4 +1,1 @@
-Now, I need to create the navigation bar. I think, by the way the website works, the nav bar should only appear once I have uploaded the log file.
-Let the colour of the bar be grey, include the links to the index page, the tables page, as well as the graphs page.
-
-The nav bar shouldn't be accessible the first time the user comes. Probably keep a variable signifying the file upload, and only allow access to it if a file is uploaded.
+Now, have to implement the drag and drop feature for the index page.

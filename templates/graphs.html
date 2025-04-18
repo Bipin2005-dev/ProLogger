@@ -8,8 +8,22 @@
 {% block form_action %}{{ url_for('graphs') }}{% endblock %}
 {% block bodyAfterForm %}
 	<div id="plots">
-		<img id="line-plot" src= {{ url_for('temp', filename='output_plots/line_plot.png') }} alt="line_plot"> <br>
-		<img id="bar-plot" src={{ url_for('temp', filename='output_plots/bar_plot.png') }} alt="bar_plot"><br>
-		<img id="pie-plot" src= {{ url_for('temp', filename='output_plots/pie_plot.png') }} alt="pie_plot"><br>
+		<img id="line-plot" src= {{ url_for('temp', filename='output_plots/line_plot.png') }} alt="line_plot">
+		<a href={{ url_for('temp', filename='output_plots/line_plot.png') }} id="download-button" download>
+			<img src="{{ url_for('static', filename="images/download-btn.avif") }}" alt="(Download)"> Download as png 
+		</a>	
+	<br>
+		<img id="bar-plot" src={{ url_for('temp', filename='output_plots/bar_plot.png') }} alt="bar_plot">
+		<a href={{ url_for('temp', filename='output_plots/bar_plot.png') }} id="download-button" download>
+			<img src="{{ url_for('static', filename="images/download-btn.avif") }}" alt="(Download)"> Download as png 
+		</a>
+	<br>
+
+		<img id="pie-plot" src= {{ url_for('temp', filename='output_plots/pie_plot.png') }} alt="pie_plot">
+		<a href={{ url_for('temp', filename='output_plots/pie_plot.png') }} id="download-button" download>
+			<img src="{{ url_for('static', filename="images/download-btn.avif") }}" alt="(Download)"> Download as png 
+		</a>
+
+	<br>
 	</div>
 {% endblock %}
