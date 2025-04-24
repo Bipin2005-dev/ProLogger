@@ -1,38 +1,39 @@
-{% extends 'graphs_and_table.html' %}
-
-{% block head %} 
-	{{ super() }}
-	<link rel="stylesheet" href= "{{ url_for('static', filename='css/table_styles.css') }}?v=1">
-	<title>Table</title>
-{% endblock %}
-{% block form_action %}{{ url_for('table') }}{% endblock %}
-{% block bodyAfterForm %}
-	<div class="download">
-		<a href="temp/processedUpload.log" id="download-button">
-			<img src="{{ url_for('static', filename="images/download-btn.avif") }}" alt="(Download)"> Download as CSV
-		</a>	
-	</div>
-	<table>
-		<thead>
-			<th>Serial No</th>
-			<th>Date and Time</th>
-			<th>Event Sate</th>
-			<th>Event</th>
-			<th>Event Code</th>
-			<th>Event Type</th>
-		</thead>
-		<tbody>
-		{% for line in tokens %}
-			<tr>
-				<td class="sl-no">{{loop.index}}</td>
-				<td class="date-time">{{line[1]}}</td>
-				<td class="event-state">{{line[2]}}</td>
-				<td class="event">{{line[3]}}</td>
-				<td class="event-code">{{line[4]}}</td>
-				<td class="event-type">{{line[5]}}</td>
-			</tr>
-		{% endfor %}
-		</tbody>
-	</table>
+{% extends 'graphs_and_table.html' %} {% block head %} {{ super() }}
+<link
+  rel="stylesheet"
+  href="{{ url_for('static', filename='css/table_styles.css') }}?v=1"
+/>
+<title>Table</title>
+<script src="{{ url_for('static', filename='js/tables.js') }}"></script>
+{% endblock %} {% block form_action %}{{ url_for('table') }}{% endblock %} {%
+block bodyAfterForm %}
+<div class="download">
+  <a href="temp/processedUpload.log" id="download-button">
+    <img src="{{ url_for('static', filename="images/download-btn.avif") }}"
+    alt="(Download)"> Download as CSV
+  </a>
+</div>
+<table>
+  <thead>
+    <th>Serial No</th>
+    <th>Date and Time</th>
+    <th>Event Sate</th>
+    <th>Event</th>
+    <th>Event Code</th>
+    <th>Event Type</th>
+  </thead>
+  <tbody>
+    {% for line in tokens %}
+    <tr>
+      <td class="sl-no">{{loop.index}}</td>
+      <td class="date-time">{{line[1]}}</td>
+      <td class="event-state">{{line[2]}}</td>
+      <td class="event">{{line[3]}}</td>
+      <td class="event-code">{{line[4]}}</td>
+      <td class="event-type">{{line[5]}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
 {% endblock %}

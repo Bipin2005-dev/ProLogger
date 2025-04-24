@@ -31,14 +31,14 @@ def fileUpload():
             with open("./temp/processedUpload.log", "r") as file:
                 error_check = file.readline()
                 if error_check.startswith("Invalid format"):
-                    return render_template('processing.html', event="Invalid file") 
+                    return render_template('processing.html', event="Invalid file")
                 elif error_check.startswith("Empty file"):
                     return render_template('processing.html', event="Empty file")
         except UnicodeDecodeError:
             return "<p>Unicode Error</p>"
         subprocess.run(["python3 ./scripts/plotter.py ./temp/processedUpload.log ./temp/output_plots/"], shell=True)
     else:
-        return render_template('processing.html', event="File not found") 
+        return render_template('processing.html', event="File not found")
     file_uploaded = True
     return redirect(url_for('table'))
 
