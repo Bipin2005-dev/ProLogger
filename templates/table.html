@@ -15,11 +15,11 @@ block bodyAfterForm %}
 </div>
 <table>
   <thead>
-    <th>Serial No</th>
-    <th>Date and Time</th>
-    <th>Event Sate</th>
+    <th><label for="sl_checkbox" style="cursor:pointer"><input type="checkbox" id="sl_checkbox">Serial No</input></label></th>
+    <th><label for="date_checkbox" style="cursor: pointer;"><input type="checkbox" id="date_checkbox">Date and Time</input></label></th>
+    <th><label for="es_checkbox" style="cursor: pointer;"><input type="checkbox" id="es_checkbox">Event State</input></label></th>
     <th>Event</th>
-    <th>Event Code</th>
+    <th><label for="ecode_checkbox" style="cursor: pointer;"><input type="checkbox" id="ecode_checkbox">Event Code</input></label></th>
     <th>Event Type</th>
   </thead>
   <tbody>
@@ -34,6 +34,6 @@ block bodyAfterForm %}
     </tr>
     {% endfor %}
   </tbody>
-</table>
+<table>
 
 {% endblock %}

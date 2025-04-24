@@ -30,7 +30,7 @@ td {
 }
 
 .date-time {
-	width: 12%;
+	width: 10%;
 }
 
 .event-state {
@@ -40,7 +40,7 @@ td {
 	width: 18%;
 }
 .event-code {
-	width: 1%;
+	width: 2%;
 }
 .event-type {
 	width: 18%;

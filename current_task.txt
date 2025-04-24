@@ -1,1 +1,4 @@
-Now, have to implement the drag and drop feature for the index page.
+Table sorting and filtering mechanism.
+You can just add a selectable near each header to tell what the table is being sorted by.
+
+For the first version of this, do not allow the table to be sorted with multiple filters.
