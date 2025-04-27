@@ -1,7 +1,6 @@
-from flask import Flask, render_template, jsonify, redirect, url_for, send_from_directory
+from flask import Flask, render_template, redirect, url_for, send_from_directory
 from flask import request
 import subprocess
-import time
 import numpy as np
 import os
 

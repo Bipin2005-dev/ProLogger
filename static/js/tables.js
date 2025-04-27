@@ -11,6 +11,7 @@ class Data {
 }
 
 let child_list = [];
+let curr_list = [];
 
 document.addEventListener("DOMContentLoaded", () => {
   // Parsing the data from the table.
@@ -37,9 +38,10 @@ document.addEventListener("DOMContentLoaded", () => {
       child_list.push(child);
     }
   });
+  curr_list = child_list;
 
   // Listen for a checked event.
-  checkboxes = document.querySelectorAll('input[type="checkbox"]');
+  checkboxes = document.querySelectorAll('thead input[type="radio"]');
   checkboxes.forEach((input) => {
     input.addEventListener("change", (event) => {
       // Allow sorting by only one parameter at a time.
@@ -55,12 +57,12 @@ document.addEventListener("DOMContentLoaded", () => {
         // Case of Date and Time.
         if (event.target.id === "date_checkbox") {
           // Sort according to Date and Time.
-          sorted_list = [...child_list].sort(
+          sorted_list = [...curr_list].sort(
             (a, b) => new Date(a.datetime) - new Date(b.datetime)
           );
         } else if (event.target.id === "es_checkbox") {
           // Sort according to events alphabetically, but also sort by serial_no.
-          sorted_list = [...child_list].sort((a, b) => {
+          sorted_list = [...curr_list].sort((a, b) => {
             if (a.event_state === b.event_state) {
               return a.serial_no - b.serial_no;
             } else {
@@ -68,7 +70,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
         } else if (event.target.id === "ecode_checkbox") {
-          sorted_list = [...child_list].sort((a, b) => {
+          sorted_list = [...curr_list].sort((a, b) => {
             if (a.event_code === b.event_code) {
               return a.serial_no - b.serial_no;
             } else {
@@ -76,7 +78,7 @@ document.addEventListener("DOMContentLoaded", () => {
             }
           });
         } else if (event.target.id === "sl_checkbox") {
-          sorted_list = [...child_list].sort(
+          sorted_list = [...curr_list].sort(
             (a, b) => a.serial_no - b.serial_no
           );
         }
@@ -109,4 +111,53 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   });
+
+  // Adding the filtering feature.
+  document
+    .querySelector("#filter_button")
+    .addEventListener("click", (event) => {
+      // Filtering by Event State.
+      let temp_list = []; // For storing the filtered Data objects.
+      const notice_checked = document.getElementById("notice").checked;
+      const error_checked = document.getElementById("error").checked;
+      let all_checked = document.getElementById("es_all").checked;
+      if ((notice_checked && error_checked) || all_checked) {
+        temp_list = [...child_list];
+      } else if (notice_checked) {
+        temp_list = child_list.filter(
+          (child) => child.event_state === "notice"
+        );
+      } else {
+        temp_list = child_list.filter((child) => child.event_state === "error");
+      }
+
+      // Filtering by event code.
+      all_checked = document.getElementById("ecode_all").checked;
+      if (!all_checked) {
+        for (code of ["E1", "E2", "E3", "E4", "E5", "E6"]) {
+          if (!document.getElementById(code).checked) {
+            temp_list = temp_list.filter((child) => child.event_code !== code);
+          }
+        }
+      }
+
+      // Changing the table.
+      let content = "";
+      temp_list.forEach((element) => {
+        console.log("Reached");
+        content += `<tr><td class="sl-no">${element.serial_no}</td>
+        <td class="date-time">${element.datetime}</td>
+        <td class="event-state">${element.event_state}</td>
+        <td class="event">${element.event}</td>
+        <td class="event-code">${element.event_code}</td>
+        <td class="event-type">${element.event_type}</td></tr>`;
+      });
+      document.getElementsByTagName("tbody")[0].innerHTML = content;
+      curr_list = temp_list;
+
+      // Uncheck all sort buttons.
+      document.querySelectorAll('thead input[type="radio"]').forEach((inp) => {
+        inp.checked = false;
+      });
+    });
 });

@@ -1,69 +1,90 @@
 table {
-	align-items: center;
-	border-collapse: collapse;
-	font-size: 14px;
-	margin-top: 2%;
+  align-items: center;
+  border-collapse: collapse;
+  font-size: 14px;
+  margin-top: 2%;
 }
 
-tbody tr:nth-child(even){
-	background-color: rgb(50, 50, 50);
+tbody tr:nth-child(even) {
+  background-color: rgb(50, 50, 50);
 }
 
 tbody tr:last-child {
-	border-bottom: 1px solid white;
+  border-bottom: 1px solid white;
 }
 
 th {
-	border-bottom: 1px solid white;
-	border-top: 1px solid white;
-	text-align: center;
+  border-bottom: 1px solid white;
+  border-top: 1px solid white;
+  text-align: center;
 }
 
 td {
-	text-align: center;
-	border-left: 1px solid white;
-	border-right: 1px solid white;
+  text-align: center;
+  border-left: 1px solid white;
+  border-right: 1px solid white;
 }
 
 .sl-no {
-	width: 2%;
+  width: 2%;
 }
 
 .date-time {
-	width: 10%;
+  width: 10%;
 }
 
 .event-state {
-	width: 5%;
+  width: 5%;
 }
 .event {
-	width: 18%;
+  width: 18%;
 }
 .event-code {
-	width: 2%;
+  width: 2%;
 }
 .event-type {
-	width: 18%;
+  width: 18%;
 }
 
 #download-button {
-	color: white;
+  color: white;
 }
 
 #download-button img {
-	height: 2.5%;
-	width: 2.5%;
-	border-radius: 50%;
-	vertical-align: middle;
+  height: 2.5%;
+  width: 2.5%;
+  border-radius: 50%;
+  vertical-align: middle;
 }
 
 .download {
-	display: flex;
-	flex-direction: column;
-	gap: 12px;
-	width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
 }
 
+.filter_form {
+  width: 100%;
+  text-align: center;
+}
 
+.filter_form h2 {
+  font-size: 1.8em;
+}
 
+.filter_form {
+  font-size: 1.1em;
+}
 
+.filter {
+  margin-left: 1.2em;
+}
+
+#filter_button {
+  color: black;
+  width: 4em;
+  background-color: white;
+  height: 1.4em;
+  border-radius: 0.7em;
+}

@@ -7,6 +7,24 @@
 <script src="{{ url_for('static', filename='js/tables.js') }}"></script>
 {% endblock %} {% block form_action %}{{ url_for('table') }}{% endblock %} {%
 block bodyAfterForm %}
+
+<!--Filters for the table.-->
+<form class="filter_form">
+  <h2>Filters</h2>
+  <label>Event State:</label>
+  <input type="checkbox" id="notice" class="filter" /> notice
+  <input type="checkbox" id="error" class="filter" /> error
+  <input type="checkbox" id="es_all" class="filter" checked /> all<br /><br />
+  <label>Event code:</label>
+  <input type="checkbox" id="E1" class="filter" /> E1
+  <input type="checkbox" id="E2" class="filter" /> E2
+  <input type="checkbox" id="E3" class="filter" /> E3
+  <input type="checkbox" id="E4" class="filter" /> E4
+  <input type="checkbox" id="E5" class="filter" /> E5
+  <input type="checkbox" id="E6" class="filter" /> E6
+  <input type="checkbox" id="ecode_all" class="filter" checked />all<br /><br />
+  <button type="button" id="filter_button">Go</button>
+</form>
 <div class="download">
   <a href="temp/processedUpload.log" id="download-button">
     <img src="{{ url_for('static', filename="images/download-btn.avif") }}"
@@ -14,12 +32,28 @@ block bodyAfterForm %}
   </a>
 </div>
 <table>
-  <thead>
-    <th><label for="sl_checkbox" style="cursor:pointer"><input type="checkbox" id="sl_checkbox">Serial No</input></label></th>
-    <th><label for="date_checkbox" style="cursor: pointer;"><input type="checkbox" id="date_checkbox">Date and Time</input></label></th>
-    <th><label for="es_checkbox" style="cursor: pointer;"><input type="checkbox" id="es_checkbox">Event State</input></label></th>
+  <thead class="sort">
+    <th>
+      <label for="sl_checkbox" style="cursor: pointer"
+        ><input type="radio" id="sl_checkbox" checked />Serial no</label
+      >
+    </th>
+    <th>
+      <label for="date_checkbox" style="cursor: pointer"
+        ><input type="radio" id="date_checkbox" />Date and Time</label
+      >
+    </th>
+    <th>
+      <label for="es_checkbox" style="cursor: pointer"
+        ><input type="radio" id="es_checkbox" />Event State</label
+      >
+    </th>
     <th>Event</th>
-    <th><label for="ecode_checkbox" style="cursor: pointer;"><input type="checkbox" id="ecode_checkbox">Event Code</input></label></th>
+    <th>
+      <label for="ecode_checkbox" style="cursor: pointer"
+        ><input type="radio" id="ecode_checkbox" />Event Code</label
+      >
+    </th>
     <th>Event Type</th>
   </thead>
   <tbody>
@@ -34,6 +68,6 @@ block bodyAfterForm %}
     </tr>
     {% endfor %}
   </tbody>
-<table>
+</table>
 
 {% endblock %}
