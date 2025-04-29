@@ -1,4 +1,8 @@
-Table sorting and filtering mechanism.
-You can just add a selectable near each header to tell what the table is being sorted by.
+Now, back to the original log file parsing. Some of the files may not be as "clean".
 
-For the first version of this, do not allow the table to be sorted with multiple filters.
+FATAL: The plots don't get generated for fewer lines!
+
+1. Some may contain a few empty lines, which have to be ignored.
+2. All the events may not be classified into E1-E6. Such events have to be put inside "other".
+
+Implement these atleast for now.

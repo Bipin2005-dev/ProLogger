@@ -6,6 +6,7 @@
 
 import numpy as np 
 import matplotlib.pyplot as plt 
+import matplotlib.dates as mdates
 from sys import argv 
 import os 
 
@@ -45,9 +46,9 @@ window = fraction * total_time_frame
 #Dates is a 1-D array. Need to convert it into 2-D.
 dates = np.reshape(dates, (dates.shape[0], 1))
 dates_transposed = np.reshape(dates, (1, dates.shape[0])) #For broadcasting.
-mask = np.argwhere(np.abs(dates - dates_transposed) < window)
+mask = np.argwhere(np.abs(dates - dates_transposed) <= window)
 diff_matrix = dates - dates_transposed
-mask = np.argwhere(np.abs(diff_matrix) < window)
+mask = np.argwhere(np.abs(diff_matrix) <= window)
 
 #Computing the mean of all the values in the window of an element.
 i_ids = mask[:,0]
@@ -62,6 +63,7 @@ ax.set_xlabel('Date and Time')
 ax.set_ylabel('No. of Events logged')
 plt.title('Average no. of events logged per sec')
 plt.xticks(rotation=45)
+ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d %H:%M'))
 plt.tight_layout()
 ax.plot(dates, rolling_mean_average)
 plt.savefig(output_folder + '/line_plot.png')

@@ -1,0 +1,70 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{float}
+\graphicspath{images/}
+
+\title{ProLogger: An Apache log file analyser}
+\author{Bipin Kumar Dehariya}
+\date{\today}
+
+\begin{document}
+\tableofcontents
+\maketitle
+
+\section{Introduction}
+    ProLogger is a simple log file analyser made using a backend in Flask and Bash, and a frontend using simple Jinja2, HTML, CSS, JS. It involves the graphical and tabular interpretation of log files, as well as conversion of file data to CSV.
+
+\section{Workflow}
+    \subsection{Starting the server}
+        The whole server has been designed to run specifically on Linux environments. After downloading the project folder, the user has to make sure that all the dependencies relating to the project have been installed. These include:
+
+        \begin{itemize}
+            \item Python(python3)
+            \item Bash (For running the backend tasks)
+            \item Flask 
+            \item jupyter (If the user wishes to see the notebooks used for coding the plotting algorithms)
+            \item jupytext (For converting the notbook to a valid Python file for execution)
+        \end{itemize}
+
+        \textbf{Note: All the above can be installed after installing Python by running: pip install -r requirements.txt} \\
+
+        After the installation is done, the user can host the server locally by opening a Bash terminal (either in VS Code or independently) and typing:  \textbf{python3 app.py} while being in the project directory. Make sure, that in the case of a using a virtual environment for the packages above, the environment has been activated. This starts the server locally, and the following messages appear in the event of a successful execution: \\
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1.2\textwidth]{images/server_started.png}
+            \caption{A successful server start}
+            \label{server_started}
+        \end{figure} \\
+
+        Now, click on the URL given under "Running on" in Fig.\ref{server_started}. This opens the website in the browser window, and take you to the index page.
+
+    \subsection{Uploading a log file}
+        The index page of the website looks like this: \\
+
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1.2\textwidth]{images/index_page.png}
+            \caption{Index Page}
+            \label{index_page}
+        \end{figure}
+
+        To upload a log file, click on "Choose File", and then upload the file, and then click the "Next" button below it.
+
+        \subsubsection{Supported Log file formats}
+        The website only supports \textbf{Apache error logs} of the following format: \\
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1.2\textwidth]{images/Supported_log_file.png}
+            \caption{A template of supported log files}
+            \label{supported_Apache}
+        \end{figure}
+
+        If an empty log file is uploaded, the following screen appears: \\
+        \begin{figure}[H]
+            \centering
+            \includegraphics[width=1.2\textwidth]{images/Supported_log_file.png}
+            \caption{A template of supported log files}
+            \label{supported_Apache}
+        \end{figure}
+\end{document}

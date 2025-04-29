@@ -75,4 +75,4 @@ def table():
         return render_template('table.html', tokens = tokenized_lines, file_uploaded=True)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
